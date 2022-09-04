@@ -1,4 +1,4 @@
-try:import random;from colorama import Fore;from requests import post
+try:import random;from colorama import Fore;from requests import post,get
 except ModuleNotFoundError:exit('[!] Download The Missing Module !')
 def saver(user):
     ID=''#Telegram id
@@ -13,13 +13,13 @@ def with_list():
 	except FileNotFoundError:exit('[!] No users File Detected - Note users file must be in user.txt File ..')
 	while True:
 		user=file.readline().split('\n')[0]
-		ru=post(f"https://analyzeid.com/username/",headers={'Host': 'analyzeid.com','User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0','Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Language': 'ar,en-US;q=0.7,en;q=0.3','Accept-Encoding': 'gzip, deflate','Content-Type': 'application/x-www-form-urlencoded','Content-Length': '12','Origin': 'https://analyzeid.com','Referer': 'https://analyzeid.com/username/','Upgrade-Insecure-Requests': '1','Sec-Fetch-Dest': 'document','Sec-Fetch-Mode': 'navigate','Sec-Fetch-Site': 'same-origin','Sec-Fetch-User': '?1','Te': 'trailers','Connection': 'close'},data=f'username={user}').text
-		if f'https://xboxgamertag.com/search/{user},available' in ru:
+		ru=get(f"https://xboxgamertag.com/search/{user}",headers={'Host': 'xboxgamertag.com','User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0','Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Language': 'ar,en-US;q=0.7,en;q=0.3','Accept-Encoding': 'gzip, deflate','Upgrade-Insecure-Requests': '1','Sec-Fetch-Dest': 'document','Sec-Fetch-Mode': 'navigate','Sec-Fetch-Site': 'none','Sec-Fetch-User': '?1','Cache-Control': 'max-age=0','Te': 'trailers'}).text
+		if f"<h1>Gamertag doesn't exist</h1>" in ru:
 			print(f'\r[{Fore.MAGENTA}${Fore.RESET}] {Fore.GREEN} Available <{done}>{Fore.RESET} | {Fore.RED} Not Available <{error}>{Fore.RESET} | {Fore.LIGHTYELLOW_EX} count <{count}> {Fore.RESET}  ',end='')
 			done+=1
 			count+=1
 			saver(user)
-		elif f'https://xboxgamertag.com/search/{user},taken' in ru:
+		elif f'<title>{user} - Xbox Gamertag</title>' in ru:
 			print(f'\r[{Fore.MAGENTA}${Fore.RESET}] {Fore.GREEN} Available <{done}>{Fore.RESET} | {Fore.RED} Not Available <{error}>{Fore.RESET} | {Fore.LIGHTYELLOW_EX} count <{count}> {Fore.RESET}  ',end='')
 			error+=1
 			count+=1
@@ -37,13 +37,13 @@ def without_list():
 			user=""
 			for item in range(length):
 				user+=random.choice(chars)
-		ru=post(f"https://analyzeid.com/username/",headers={'Host': 'analyzeid.com','User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0','Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Language': 'ar,en-US;q=0.7,en;q=0.3','Accept-Encoding': 'gzip, deflate','Content-Type': 'application/x-www-form-urlencoded','Content-Length': '12','Origin': 'https://analyzeid.com','Referer': 'https://analyzeid.com/username/','Upgrade-Insecure-Requests': '1','Sec-Fetch-Dest': 'document','Sec-Fetch-Mode': 'navigate','Sec-Fetch-Site': 'same-origin','Sec-Fetch-User': '?1','Te': 'trailers','Connection': 'close'},data=f'username={user}').text
-		if f'https://xboxgamertag.com/search/{user},available' in ru:
+		ru=get(f"https://xboxgamertag.com/search/{user}",headers={'Host': 'xboxgamertag.com','User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0','Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Language': 'ar,en-US;q=0.7,en;q=0.3','Accept-Encoding': 'gzip, deflate','Upgrade-Insecure-Requests': '1','Sec-Fetch-Dest': 'document','Sec-Fetch-Mode': 'navigate','Sec-Fetch-Site': 'none','Sec-Fetch-User': '?1','Cache-Control': 'max-age=0','Te': 'trailers'}).text
+		if f"<h1>Gamertag doesn't exist</h1>" in ru:
 			print(f'\r[{Fore.MAGENTA}${Fore.RESET}] {Fore.GREEN} Available <{done}>{Fore.RESET} | {Fore.RED} Not Available <{error}>{Fore.RESET} | {Fore.LIGHTYELLOW_EX} count <{count}> {Fore.RESET}  ',end='')
 			done+=1
 			count+=1
 			saver(user)
-		elif f'https://xboxgamertag.com/search/{user},taken' in ru:
+		elif f'<title>{user} - Xbox Gamertag</title>' in ru:
 			print(f'\r[{Fore.MAGENTA}${Fore.RESET}] {Fore.GREEN} Available <{done}>{Fore.RESET} | {Fore.RED} Not Available <{error}>{Fore.RESET} | {Fore.LIGHTYELLOW_EX} count <{count}> {Fore.RESET}  ',end='')
 			error+=1
 			count+=1
